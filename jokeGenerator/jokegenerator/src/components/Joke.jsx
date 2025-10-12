@@ -1,4 +1,4 @@
-// Joke.js
+
 
 import React from "react";
  
@@ -9,10 +9,13 @@ const Joke = () => {
     const [Joke, setJoke] = React.useState("");
 
     const fetchApi = () => {
-        fetch("https://v2.jokeapi.dev/joke/Any")
-            .then((res) => res.json())
-            .then((data) => setJoke(data.joke));
-            console.log(data);
+        fetch("https://sv443.net/jokeapi/v2/joke/Programming?type=single")
+            .then((res) => { console.log(res) 
+                return res.json()})
+            .then((data) => {
+                console.log(data)
+                return setJoke(data.joke)});
+        
     };
 
     return (

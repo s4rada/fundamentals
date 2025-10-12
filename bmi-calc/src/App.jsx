@@ -27,7 +27,7 @@ function App() {
   const calculateBMI = () => {
     const {height, weight} = formData;
 
-    const bmiCalc = parseFloat(height)/ parseFloat(weight)
+    const bmiCalc = Math.round(parseFloat(weight) / ((parseFloat(height)/100)*(parseFloat(height)/100)))
     setDisplay(bmiCalc)
 
   }

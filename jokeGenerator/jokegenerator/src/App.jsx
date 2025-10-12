@@ -1,17 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-import Button from './components/Button'
-import Joke from './components/Joke'
+
+
+import Joke from "./components/Joke";
 
 function App() {
-
-
-  return (
-    <main>
-      <h2>Joke Generator</h2>
-      <Button/>
-    </main>
-  )
+    return (
+        <div className="App">
+            <h1>Joke Generator Using React and Joke API</h1>
+            <Joke/>
+        </div>
+    );
 }
 
-export default App
+export default App;
