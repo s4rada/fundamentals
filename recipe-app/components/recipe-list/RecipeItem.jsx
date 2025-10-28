@@ -27,7 +27,7 @@ const RecipeItem = ({ item }) => {
           <span className="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded-full">
             #{item.id.slice(-4)}
           </span>
-          <Link to={`/recipe-item/:${item.id}`} className="text-orange-500 hover:text-orange-600 text-sm font-medium transition-colors">
+          <Link to={`/recipe-item/${item.id}`} className="text-orange-500 hover:text-orange-600 text-sm font-medium transition-colors">
             View Recipe →
           </Link>
         </div>

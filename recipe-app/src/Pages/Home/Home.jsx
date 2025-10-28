@@ -8,8 +8,10 @@ const Home = () => {
   
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-      {isLoading ? (
+      {isLoading ? 
+      (<div className='flex justify-center align-items'>
         <Loading />
+      </div>
       ) : (
         <div>
           {recipeList && recipeList.length > 0 ? (
