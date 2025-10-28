@@ -9,7 +9,6 @@ import Details from './Pages/Details/Details'
 import Favorites from './Pages/Favorites/Favorites'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
    <div>
