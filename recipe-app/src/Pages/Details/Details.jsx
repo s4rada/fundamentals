@@ -1,10 +1,27 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { GlobalContext } from '../../../context/Context'
 
 const Details = () => {
   const { id } = useParams()
-  const { recipeDetailsData, setRecipeDetailsData, HandleAddFavorites } = useContext(GlobalContext)
+  const { 
+    recipeDetailsData, 
+    setRecipeDetailsData, 
+    HandleAddFavorites, 
+    favoritesList,
+    HandleRemoveFavorites 
+  } = useContext(GlobalContext)
+  
+  const [isFavorite, setIsFavorite] = useState(false)
+
+
+  useEffect(() => {
+    if (recipeDetailsData && favoritesList) {
+      const favoriteExists = favoritesList.some(fav => fav.id === recipeDetailsData.id)
+      setIsFavorite(favoriteExists)
+    }
+  }, [recipeDetailsData, favoritesList])
+
   useEffect(() => {
     async function getRecipeDetails() {
       const response = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`)
@@ -17,6 +34,20 @@ const Details = () => {
     }
     getRecipeDetails()
   }, [id, setRecipeDetailsData])
+
+  const handleFavoriteToggle = () => {
+    if (!recipeDetailsData) return
+    
+    if (isFavorite) {
+
+      HandleRemoveFavorites(recipeDetailsData.id)
+      setIsFavorite(false)
+    } else {
+
+      HandleAddFavorites(recipeDetailsData)
+      setIsFavorite(true)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 py-8">
@@ -36,6 +67,14 @@ const Details = () => {
                   🍽️ Recipe
                 </span>
               </div>
+              
+              {isFavorite && (
+                <div className="absolute top-4 right-4">
+                  <span className="bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg animate-pulse">
+                    ❤️ Favorited
+                  </span>
+                </div>
+              )}
             </div>
             
 
@@ -66,9 +105,31 @@ const Details = () => {
                 )}
               </div>
 
-              <button onClick={()=>HandleAddFavorites(recipeDetailsData)} className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl w-fit">
-                ❤️ Save as Favorites
+              <button 
+                onClick={handleFavoriteToggle}
+                className={`
+                  font-semibold py-3 px-8 rounded-full transition-all duration-300 transform 
+                  shadow-lg hover:shadow-xl w-fit border-2
+                  ${isFavorite 
+                    ? 'bg-white text-red-500 border-red-500 hover:bg-red-50 hover:scale-105' 
+                    : 'bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white border-transparent hover:scale-105'
+                  }
+                `}
+              >
+                {isFavorite ? (
+                  <span className="flex items-center gap-2">
+                    ❤️ Added to Favorites
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    🤍 Save as Favorites
+                  </span>
+                )}
               </button>
+
+              <p className="text-sm text-gray-500 mt-3">
+                {favoritesList?.length || 0} recipe{favoritesList?.length !== 1 ? 's' : ''} in your favorites
+              </p>
             </div>
           </div>
         </div>
