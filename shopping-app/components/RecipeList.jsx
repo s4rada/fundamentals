@@ -1,6 +1,11 @@
 import React from 'react'
+import {useState } from 'react'
 
-const RecipeList = ({ item }) => {
+const RecipeList = ({ item, HandleAddCart }) => {
+  // const [cartList,setCartList] = useState([])
+  const addCart = ()=>{
+    HandleAddCart(item)
+  }
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 group">
       <div className="p-4 bg-gray-50">
@@ -25,7 +30,7 @@ const RecipeList = ({ item }) => {
           </span>
         </div>
 
-        <button className="w-full bg-black text-white py-2.5 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200">
+        <button onClick={addCart} className="w-full bg-black text-white py-2.5 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200">
           Add to Cart
         </button>
       </div>

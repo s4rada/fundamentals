@@ -27,13 +27,13 @@ const Navbar = () => {
 
           <div className="flex items-center space-x-8">
             <Link 
-              to="/" 
+              to="/home" 
               className="text-gray-600 hover:text-black font-medium text-lg transition-colors border-b-2 border-transparent hover:border-black pb-1"
             >
               Home
             </Link>
             <Link 
-              to="/favorites" 
+              to="/cart" 
               className="text-gray-600 hover:text-black font-medium text-lg transition-colors border-b-2 border-transparent hover:border-black pb-1"
             >
               Cart
